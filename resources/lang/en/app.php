@@ -35,6 +35,28 @@ return [
     'view_activity_log' => 'View Activity Log',
     'user_agent' => 'User Agent',
 
+    //product list section
+    'product_list'  => 'Product List',
+    'id'    => 'Id',
+    'rank'   => 'Rank',
+    'thumbnail' => 'Thumbnail',
+    'url'   => 'Url',
+    'original_title'    => 'Original Title',
+    'original_description'  => 'Original Description',
+    'price' => 'Price',
+    'english_title'    => 'English Title',
+    'english_description'  => 'English Description',
+    'chinese_title'    => 'Chinese Title',
+    'chinese_description'  => 'Chinese Description',
+    'image' => 'Image',
+    'extra_image'   => 'Extra Image',
+    'created_at'    => 'Created At',
+    'search_for_product' => 'Search for product...',
+    'refresh'   => 'Refresh',
+    'download'  => 'Download',
+
+
+
     // Dashboard
     'welcome' => 'Welcome',
     'dashboard' => 'Dashboard',

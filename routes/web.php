@@ -320,6 +320,35 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ActivityController@userActivity'
     ]);
 
+    /**
+     * product operate
+     */
+    Route::get('fetchData', [
+        'as' => 'product.fetchData',
+        'uses' => 'Product\FetchDataController@fetchData'
+    ]);
+
+    /**
+     * product index
+     */
+    Route::get('product', [
+        'as' => 'product.index',
+        'uses' => 'Product\FetchDataController@index'
+    ]);
+
+    Route::get('imageDownload', [
+        'as' => 'product.imageDownload',
+        'uses' => 'Product\DownloadDataController@downloadImage'
+    ]);
+
+    Route::get('downloadExcel', [
+        'as' => 'product.imageDownload',
+        'uses' => 'Product\DownloadDataController@downloadExcel'
+    ]);
+
+
+
+
 });
 
 
