@@ -55,6 +55,18 @@ return [
     'refresh'   => 'Refresh',
     'download'  => 'Download',
 
+    'product_id' => 'Product Id',
+    'quantity'  => 'Quantity',
+    'stock_location' => 'Stock Location',
+    'ean_number'    => 'EAN Number',
+    'edit_pdf'  => 'Edit PDF',
+    'download_edited_pdf'   => 'Download Edited Pdf',
+    '11degits'  => 'Product id need 11 digits minimum',
+    '8degitsandcharacters'  => 'Stock location need 8 characters and allow only Number and characters',
+    '14degits'  => 'EAN number need 14 digits',
+
+    'pdf_transfer'  => 'PDF Transfer',
+
 
 
     // Dashboard

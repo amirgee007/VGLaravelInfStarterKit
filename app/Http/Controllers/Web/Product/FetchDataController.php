@@ -135,7 +135,7 @@ class FetchDataController extends Controller
         $adminView = true;
         $domain = "https://www.fruugo.us";
         $products = $this->products->paginateProducts($perPage, $request->get('search'));
-         return view('product.index', compact('products', 'adminView', 'domain'));
+        return view('product.index', compact('products', 'adminView', 'domain'));
     }
 
 
