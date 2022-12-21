@@ -18,26 +18,6 @@
     @endif
 @stop
 
-@section('style')
-    #progress {
-    height: 10px;
-    width: 300px;
-    border: 1px solid white;
-    position: relative;
-    border-radius: 5px;
-    }
-
-    #progress .progress-item {
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: #2468a9;
-    border-radius: 5px;
-    transition: width .3s linear;
-    }
-@stop
-
 @section('content')
 
     <div class="card">
@@ -46,8 +26,9 @@
             <div class="row justify-content-between mt-3 mb-4">
                 <div class="col-lg-5 col-md-6">
                     <div class="input-group custom-search-form">
+                        <div style="color:orange;display: block">***The pdf provided is compressed, so replaced by a decompressed one.</div>
+
                         <div style="display: flex;flex-wrap: wrap;">
-                            {{--<label htmlFor="product_id">@lang('app.pdf_template')</label>--}}
 
                             <label htmlFor="product_id">@lang('app.product_id')</label>
                             <input type="text" id="product_id"
@@ -77,7 +58,7 @@
                                    placeholder="@lang('app.14degits')">
 
                             <span class="input-group-append" style="gap: 20px; margin-top: 10px;">
-                                <a href="/downloadCurrentPdf" target="_blank">
+                                <a href="pdf/downloadCurrentPdf" target="_blank">
                                 <button class="btn btn-danger" type="button" id="download_current_pdf">
                                     <i class="fas text-muted"></i>
                                     Download Current PDF
@@ -87,7 +68,7 @@
                                     <i class="fas text-muted"></i>
                                     Edit PDF
                                 </button>
-                                <a href="/downloadEditedPdf" target="_blank">
+                                <a href="pdf/downloadEditedPdf" target="_blank">
                                 <button class="btn btn-success" type="button" id="download_edited_pdf">
                                     <i class="fas text-muted"></i>
                                     Download Edited Pdf
@@ -123,7 +104,7 @@
             var progress = setInterval(function(){
                 $("#progress .progress-item").css('width', "0%");
                 $("#datadd").html("0%");
-                $.getJSON('/progress', function(data) {
+                $.getJSON('pdf/progress', function(data) {
                     // $('#progress').html(data[0]);
                     $("#progress .progress-item").css('width', data[0] + "%");
                     $("#datadd").html(data[0] + "%");
@@ -133,7 +114,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/editPdf",
+                url: "pdf/editPdf",
                 data: $('#edit-pdf-form').serialize(),
                 success: function (result) {
                     $("#progress .progress-item").css('width', "100%");

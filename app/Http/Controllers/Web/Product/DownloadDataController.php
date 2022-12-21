@@ -64,7 +64,8 @@ class DownloadDataController extends Controller
     protected function uploadFromUrl(string $url): string
     {
         $contents = file_get_contents($url);
-        $storage_disk = 'public/';
+        $storage_disk = 'public';
+
         $filename = pathinfo($url)['basename'];
 
         Storage::disk($storage_disk)->put($filename, $contents);
@@ -102,6 +103,7 @@ class DownloadDataController extends Controller
                 $autoNum = 0;
                 $domain = 'https://www.fruugo.us';
 
+                //deal with product info
                 foreach ($this->getData() as $item)
 
                 {
@@ -123,11 +125,14 @@ class DownloadDataController extends Controller
 
                 // deal with product image
 
+//                print_r($arr);exit;
                 foreach ($arr as $k=> &$item)
 
                 {
                     $obj= new PHPExcel_Worksheet_Drawing();// use phpExcel
-                    $obj->setPath($this->uploadFromUrl($item['thumbnail']));
+
+                    $thumbnail = $this->uploadFromUrl($item['thumbnail']);
+                    $obj->setPath($thumbnail);
                     $sp= $title_array[0 + 3];
                     $obj->setCoordinates('B'.($k + 2));//set location of image
                     $sheet->setHeight($k + 2, 65);//set height

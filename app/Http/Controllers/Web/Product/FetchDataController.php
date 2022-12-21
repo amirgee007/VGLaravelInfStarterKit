@@ -51,8 +51,10 @@ class FetchDataController extends Controller
 
             $crawler = new Crawler();
             $crawler->addHtmlContent($response);
+
+            //there is just for test, so load only one page data, if there is need, load all page data by schedule
 //            $total_page = $crawler->filter('.pagination a.d-none')->last()->text();
-            $total_page = 3;
+            $total_page = 1;
             if ($total_page >= $page) {
                 //get list data by filter
                 $data = $crawler->filter('.product-item')->each(function (Crawler $node, $i) {

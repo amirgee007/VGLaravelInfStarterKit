@@ -53,6 +53,15 @@
             </li>
             @endpermission
 
+            @permission('users.product')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('activity*') ? 'active' : ''  }}" href="{{ route('activity.index') }}">
+                    <i class="fas fa-server"></i>
+                    <span>@lang('app.product_list')</span>
+                </a>
+            </li>
+            @endpermission
+
             @permission(['roles.manage', 'permissions.manage'])
             <li class="nav-item">
                 <a href="#roles-dropdown"

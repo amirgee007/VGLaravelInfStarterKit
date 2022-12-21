@@ -48,12 +48,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <a href="/product" class="btn btn-primary btn-rounded float-right refresh" style="margin-right: 5px;">
+                    <button id="refresh" type="button" class="btn btn-primary btn-rounded float-right refresh" style="margin-right: 5px;">
                         <i class="fas fa-recycle mr-2"></i>
                         @lang('app.refresh')
-                    </a>
+                    </button>
 
-                    <a href="/downloadExcel" class="btn btn-primary btn-rounded float-right downloadExcel">
+                    <a href="product/downloadExcel" class="btn btn-primary btn-rounded float-right downloadExcel">
                         <i class="fas fa-download mr-2" style="margin-right: 5px;"></i>
                         @lang('app.download')
                     </a>
@@ -63,7 +63,7 @@
 
             </div>
         </form>
-
+        <div id="info" style="color:orange;"></div>
         <div class="table-responsive">
             <table class="table table-borderless table-striped">
                 <thead>
@@ -115,7 +115,7 @@
                                             <i class="fas fa-link text-muted"></i>
                                         </button>
                                     </a>
-                                <a href="imageDownload?url={{$product->image}}" target="_blank">
+                                <a href="product/imageDownload?url={{$product->image}}" target="_blank">
                                     <button class="btn btn-light" type="button" id="view-product-btn">
                                         <i class="fas fa-download text-muted"></i>
                                     </button>
@@ -137,6 +137,22 @@
 
 @section('scripts')
     <script>
+        $('#refresh').click(function () {
+            $('#info').html('data is downloading from https://www.fruugo.us, please wait patiently...');
+            $.ajax({
+                    type: "GET",
+                    url: "product/fetchData",
+                    // async: false,
+                    success: function (result) {
+                        $('#info').html('data is download successful.');
+                    },
+                    complete: function () {
+                        $('#info').html('');
+                        window.location.reload()
+                    }
+                }
 
+            )
+        });
     </script>
 @stop

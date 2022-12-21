@@ -57,11 +57,11 @@ class PdfTransferController extends Controller
      * @throws \setasign\Fpdi\PdfReader\PdfReaderException
      */
     public function editPdf(Request $request){
+
         Session::put('progress', 0);
         Session::save(); // Remember to call save()
         // download sample file.
         $outputFile = Storage::disk('local')->path('output.pdf');
-//        ?product_id=12312312312&quantity=56&stock_location=qweqwe12&ean_number=12345677654321
         $product_id = $request->post('product_id');
         $quantity = $request->post('quantity');
         $stock_location = $request->post('stock_location');
@@ -76,7 +76,9 @@ class PdfTransferController extends Controller
         return $response;
     }
 
-    // Mapped to yoursite.com/progress
+    /**return progress
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getProgress() {
         Session::put('progress', Session::get('progress') <= 90 ? Session::get('progress') + 10 : 100);
         Session::save();
@@ -141,12 +143,20 @@ class PdfTransferController extends Controller
         return $this->fpdi->Output($outputFile, 'F');
     }
 
-    public function downloadCurrentPdf()
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadCurrentPdf(Request $request)
     {
         return response()->download(Storage::disk('local')->path('original.pdf'));
     }
 
-    public function downloadEditedPdf(){
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function downloadEditedPdf(Request $request){
         return response()->download(Storage::disk('local')->path('output.pdf'));
     }
 }

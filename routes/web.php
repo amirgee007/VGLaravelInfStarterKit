@@ -323,7 +323,7 @@ Route::group(['middleware' => 'auth'], function () {
     /**
      * product operate
      */
-    Route::get('fetchData', [
+    Route::get('product/fetchData', [
         'as' => 'product.fetchData',
         'uses' => 'Product\FetchDataController@fetchData'
     ]);
@@ -336,15 +336,52 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'Product\FetchDataController@index'
     ]);
 
-    Route::get('imageDownload', [
+    Route::get('product/imageDownload', [
         'as' => 'product.imageDownload',
         'uses' => 'Product\DownloadDataController@downloadImage'
     ]);
 
-    Route::get('downloadExcel', [
+    Route::get('product/downloadExcel', [
         'as' => 'product.imageDownload',
         'uses' => 'Product\DownloadDataController@downloadExcel'
     ]);
+
+    /**
+     * product info pdf generate
+     */
+
+    Route::get('pdf', [
+        'as' => 'product.pdf',
+        'uses' => 'Product\PdfTransferController@index'
+
+    ]);
+
+    Route::post('pdf/editPdf', [
+        'as' => 'editPdf',
+        'uses' => 'Product\PdfTransferController@editPdf'
+
+    ]);
+
+    Route::get('pdf/downloadCurrentPdf', [
+        'as' => 'downloadCurrentPdf',
+        'uses' => 'Product\PdfTransferController@downloadCurrentPdf'
+
+    ]);
+
+    Route::get('pdf/downloadEditedPdf', [
+        'as' => 'downloadEditedPdf',
+        'uses' => 'Product\PdfTransferController@downloadEditedPdf'
+
+    ]);
+
+    Route::get('pdf/progress', [
+        'as' => 'progress',
+        'uses' => 'Product\PdfTransferController@getProgress'
+
+    ]);
+
+
+
 
 
 
