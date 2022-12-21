@@ -351,31 +351,31 @@ Route::group(['middleware' => 'auth'], function () {
      */
 
     Route::get('pdf', [
-        'as' => 'product.pdf',
+        'as' => 'pdf.index',
         'uses' => 'Product\PdfTransferController@index'
 
     ]);
 
     Route::post('pdf/editPdf', [
-        'as' => 'editPdf',
+        'as' => 'pdf.editPdf',
         'uses' => 'Product\PdfTransferController@editPdf'
 
     ]);
 
     Route::get('pdf/downloadCurrentPdf', [
-        'as' => 'downloadCurrentPdf',
+        'as' => 'pdf.downloadCurrentPdf',
         'uses' => 'Product\PdfTransferController@downloadCurrentPdf'
 
     ]);
 
     Route::get('pdf/downloadEditedPdf', [
-        'as' => 'downloadEditedPdf',
+        'as' => 'pdf.downloadEditedPdf',
         'uses' => 'Product\PdfTransferController@downloadEditedPdf'
 
     ]);
 
     Route::get('pdf/progress', [
-        'as' => 'progress',
+        'as' => 'pdf.progress',
         'uses' => 'Product\PdfTransferController@getProgress'
 
     ]);

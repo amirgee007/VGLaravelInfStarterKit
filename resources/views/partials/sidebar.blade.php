@@ -55,9 +55,18 @@
 
             @permission('users.product')
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('activity*') ? 'active' : ''  }}" href="{{ route('activity.index') }}">
+                <a class="nav-link {{ Request::is('product*') ? 'active' : ''  }}" href="{{ route('product.index') }}">
                     <i class="fas fa-server"></i>
                     <span>@lang('app.product_list')</span>
+                </a>
+            </li>
+            @endpermission
+
+            @permission('users.pdf')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('pdf*') ? 'active' : ''  }}" href="{{ route('pdf.index') }}">
+                    <i class="fas fa-server"></i>
+                    <span>@lang('app.pdf_transfer')</span>
                 </a>
             </li>
             @endpermission
