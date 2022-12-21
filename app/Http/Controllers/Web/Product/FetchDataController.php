@@ -2,6 +2,7 @@
 
 namespace Vanguard\Http\Controllers\Web\Product;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vanguard\Http\Controllers\Controller;
@@ -44,6 +45,10 @@ class FetchDataController extends Controller
     public function fetchData($page = 1)
     {
         try{
+            if ($page == 1){
+                DB::select('TRUNCATE potential_products; ');
+            }
+
 //            echo $page;
             $url = 'https://www.fruugo.us/home-garden/d-ws69316386?page='.$page;
 //            echo $url;
