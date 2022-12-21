@@ -67,6 +67,12 @@ return [
 
     'pdf_transfer'  => 'PDF Transfer',
 
+    'logic_test'    => 'Logic Test',
+    'warehouse_location'    => 'Warehouse Location',
+    'check' =>'Check',
+    'match' => 'Match Test',
+
+
 
 
     // Dashboard

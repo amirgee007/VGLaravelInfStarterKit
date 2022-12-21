@@ -380,6 +380,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     ]);
 
+    Route::get('logic/index', [
+        'as' => 'logic.index',
+        'uses'  => 'Logic\TestController@index',
+    ]);
+
+    Route::get('logic/checkMiss', [
+        'as' => 'logic.checkMiss',
+        'uses'  => 'Logic\TestController@checkMiss',
+    ]);
+
+    Route::get('logic/checkMatch', [
+        'as' => 'logic.checkMatch',
+        'uses'  => 'Logic\TestController@checkMatch',
+    ]);
+
 
 
 
