@@ -2,6 +2,7 @@
 
 namespace Vanguard\Http\Controllers\Web\Product;
 
+use Google\Cloud\Translate\V2\TranslateClient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -144,6 +145,24 @@ class FetchDataController extends Controller
         $products = $this->products->paginateProducts($perPage, $request->get('search'));
         return view('product.index', compact('products', 'adminView', 'domain'));
     }
+
+    public function translate($string, $from, $target){
+        $translate = new TranslateClient([
+            'key' => 'AIzaSyBNGmR7j825KsGr89DaGIpZ_6FFHb7ltGw'
+        ]);
+        if ($from == $target || $from == '' || $target == ''){
+            return $string;
+        }
+        // Translate text from english to french.
+        $result = $translate->translate('Hello world!', [
+            'target' => $target
+        ]);
+        return $result['text'];
+
+
+    }
+
+
 
 
 }
