@@ -62,6 +62,15 @@
             </li>
             @endpermission
 
+            @permission('users.logic')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('logic*') ? 'active' : ''  }}" href="{{ route('logic.index') }}">
+                    <i class="fas fa-server"></i>
+                    <span>@lang('app.logic_test')</span>
+                </a>
+            </li>
+            @endpermission
+
             @permission('users.pdf')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('pdf*') ? 'active' : ''  }}" href="{{ route('pdf.index') }}">
