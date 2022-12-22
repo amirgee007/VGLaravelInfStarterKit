@@ -368,9 +368,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     ]);
 
-    Route::get('pdf/downloadEditedPdf', [
+    Route::get('pdf/downloadEditedPdfNew', [
         'as' => 'pdf.downloadEditedPdf',
-        'uses' => 'Product\PdfTransferController@downloadEditedPdf'
+        'uses' => 'Product\PdfTransferController@downloadEditedPdfNew'
 
     ]);
 

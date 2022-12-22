@@ -1,5 +1,47 @@
 @extends('layouts.app')
-
+@section('styles')
+    <style>
+    #button{
+    display:block;
+    margin:20px auto;
+    padding:10px 30px;
+    background-color:#eee;
+    border:solid #ccc 1px;
+    cursor: pointer;
+    }
+    #overlay{
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height:100%;
+    display: none;
+    background: rgba(0,0,0,0.6);
+    }
+    .cv-spinner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px #ddd solid;
+    border-top: 4px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+    }
+    @keyframes sp-anime {
+    100% {
+    transform: rotate(360deg);
+    }
+    }
+    .is-hide{
+    display:none;
+    }
+    </style>
+@stop
 @section('page-title', trans('app.pdf_transfer'))
 @section('page-heading', isset($user) ? $user->present()->nameOrEmail : trans('app.pdf_transfer'))
 
@@ -22,7 +64,7 @@
 
     <div class="card">
     <div class="card-body">
-        <form action="" method="GET" id="edit-pdf-form" class="border-bottom-light mb-3">
+        <form action="" method="POST" id="edit-pdf-form" class="border-bottom-light mb-3">
             <div class="row justify-content-between mt-3 mb-4">
                 <div class="col-lg-5 col-md-6">
                     <div class="input-group custom-search-form">
@@ -68,7 +110,7 @@
                                     <i class="fas text-muted"></i>
                                     Edit PDF
                                 </button>
-                                <a href="pdf/downloadEditedPdf" target="_blank">
+                                <a href="pdf/downloadEditedPdfNew" target="_blank">
                                 <button class="btn btn-success" type="button" id="download_edited_pdf">
                                     <i class="fas text-muted"></i>
                                     Download Edited Pdf
@@ -76,13 +118,13 @@
                                 </a>
 
                             </span>
+                            <div id="overlay">
+                                <div class="cv-spinner">
+                                    <span class="spinner"></span>
+                                </div>
 
-
-
-
-                            <div id="progress" style=" margin-top:30px;height: 10px; width: 300px;border: 1px solid white; position: relative;border-radius: 5px;">
-                                <div class="progress-item" id="datadd" style="height: 100%; position: absolute;left: 0;top: 0;background: #2468a9; border-radius: 5px;transition: width .3s linear;"></div>
                             </div>
+                            <div id="info"></div>
 
                         </div>
                     </div>
@@ -101,35 +143,68 @@
     <?php echo JsValidator::formRequest('Vanguard\Http\Requests\Product\EditPdfRequest', '#edit-pdf-form'); ?>
     <script>
         $('#edit_pdf').click(function () {
-            var progress = setInterval(function(){
-                $("#progress .progress-item").css('width', "0%");
-                $("#datadd").html("0%");
-                $.getJSON('pdf/progress', function(data) {
-                    // $('#progress').html(data[0]);
-                    $("#progress .progress-item").css('width', data[0] + "%");
-                    $("#datadd").html(data[0] + "%");
-
-                });
-            }, 5);
-
+            $("#overlay").fadeIn(300);
+            // initProgress();
+            // $('#edit-pdf-form').submit();
+            // var progress = setInterval(function(){
+            //     $.getJSON('pdf/progress', function(data) {
+            //         // $('#progress').html(data[0]);
+            //         $("#progress .progress-item").css('width', data[0] + "%");
+            //         $("#datadd").html(data[0] + "%");
+            //         if (data[0] == 100){
+            //             $('#progress').hide();
+            //         }
+            //     });
+            // }, 3);
+            var flag = true;
             $.ajax({
                 type: "POST",
                 url: "pdf/editPdf",
                 data: $('#edit-pdf-form').serialize(),
+
                 success: function (result) {
-                    $("#progress .progress-item").css('width', "100%");
-                    $("#datadd").html(100 + "%");
-                    clearInterval(progress);
-                    setTimeout(function(){ $('#progress').hide(); }, 2000);
+                    flag = false
+                    $("#info").html(result)
+                    setTimeout(function(){
+                        $("#overlay").fadeOut(300);
+                    },500);
+                    setTimeout(function(){
+                        $("#info").html('');
+                    },3000);
+                    // finishProgress(progress);
                 },
                 complete:function () {
-                    $("#progress .progress-item").css('width', "100%");
-                    $("#datadd").html(100 + "%");
-                    clearInterval(progress);
-                    setTimeout(function(){ $('#progress').hide(); }, 2000);
-                }
+                    if (flag){
+                        $('#edit-pdf-form').submit();
+                        setTimeout(function(){
+                            $("#overlay").fadeOut(300);
+                        },500);
+
+                    }
+
+                   // finishProgress(progress);
+                },
+                error: function(xhr) { // if error occured
+                    // finishProgress(progress);
+                },
             });
         });
+
+        function initProgress() {
+            var data = 0;
+            $('#progress').show();
+            $("#progress .progress-item").css('width',  data+"%");
+            $("#datadd").html(data+"%");
+
+        }
+
+        function finishProgress(progress) {
+            clearInterval(progress);
+            var data = 100;
+            $("#progress .progress-item").css('width',  data+"%");
+            $("#datadd").html(data+"%");
+            $('#progress').hide();
+        }
 
 
         

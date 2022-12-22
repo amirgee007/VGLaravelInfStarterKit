@@ -5,6 +5,7 @@ namespace Vanguard\Http\Controllers\Web\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Vanguard\Http\Controllers\Controller;
+use Vanguard\Http\Requests\Product\EditPdfRequest;
 use Vanguard\Repositories\Product\ProductRepository;
 use Vanguard\Repositories\Product\EloquentProduct;
 use Illuminate\Http\Request;
@@ -56,12 +57,20 @@ class PdfTransferController extends Controller
      * @throws \setasign\Fpdi\PdfParser\Type\PdfTypeException
      * @throws \setasign\Fpdi\PdfReader\PdfReaderException
      */
-    public function editPdf(Request $request){
-
+    public function editPdf(EditPdfRequest $request){
+        $re = $this->validate($request, $request->rules());
+//        var_dump($re);
         Session::put('progress', 0);
         Session::save(); // Remember to call save()
         // download sample file.
-        $outputFile = Storage::disk('local')->path('output.pdf');
+//        unlink the previous file
+//        if (file_exists(Session::get('pdf-name'))){
+//            unlink(Session::get('pdf-name'));
+//        }
+        $outputFile = Storage::disk('local')->path('output-'.time().'.pdf');
+//        echo $outputFile;
+        Session::put('pdf-name', $outputFile);
+        Session::save(); // Remember to call save()
         $product_id = $request->post('product_id');
         $quantity = $request->post('quantity');
         $stock_location = $request->post('stock_location');
@@ -70,10 +79,8 @@ class PdfTransferController extends Controller
         $this->fillPDF(public_path().('/template/original.pdf'), $outputFile, $product_id, $quantity, $stock_location, $ean_number);
 
 
-        //output to browser
-        $response = Response()->make();
-        $response->header('Content-Type', 'application/json');
-        return $response;
+
+        return \Response::json('Edit pdf complete.');
     }
 
     /**return progress
@@ -140,6 +147,7 @@ class PdfTransferController extends Controller
             $this->fpdi->Text(145,168,strval($ean_number));
 
         }
+//        echo $outputFile;
         return $this->fpdi->Output($outputFile, 'F');
     }
 
@@ -149,14 +157,15 @@ class PdfTransferController extends Controller
      */
     public function downloadCurrentPdf(Request $request)
     {
-        return response()->download(Storage::disk('local')->path('original.pdf'));
+        return response()->download(public_path().('/template/original.pdf'));
     }
 
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadEditedPdf(Request $request){
-        return response()->download(Storage::disk('local')->path('output.pdf'));
+    public function downloadEditedPdfNew(Request $request){
+        $fileName = Session::get('pdf-name');
+        return response()->download($fileName);
     }
 }
