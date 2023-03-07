@@ -37,7 +37,31 @@
             </div>
         </div>
     </div>
-
+    <script>
+        // define commone script
+        var Common = {
+            ajax: function (options, success) {
+                var defaultOpt = {
+                    'type': 'get',
+                    'url': ''
+                }
+                var options = $.extend(defaultOpt, options)
+                $.ajax({
+                    type: options.type,
+                    url: options.url,
+                    success: function (data) {
+                        console.log(data)
+                        if (data.code == 1) {
+                            success && success(data.data)
+                        } else {
+                            alert(data.msg);
+                        }
+                    },
+                    dataType: 'json'
+                })
+            }
+        }
+    </script>
     <script src="{{ url(mix('assets/js/vendor.js')) }}"></script>
     <script src="{{ url('assets/js/as/app.js') }}"></script>
     @yield('scripts')

@@ -1,0 +1,23 @@
+Host: allegro.pl
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-device-memory: 8
+dpr: 1.25
+viewport-width: 411
+sec-ch-ua: "Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-arch: "x86"
+sec-ch-ua-platform: "Windows"
+sec-ch-ua-model: ""
+sec-ch-ua-full-version-list: "Chromium";v="110.0.5481.178", "Not A(Brand";v="24.0.0.0", "Microsoft Edge";v="110.0.1587.57"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.57
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+Cookie: _cmuid=c11b87ab-c5a6-43fc-9868-a1c3c4fa15b9; wdctx=v4.DFCBTjHV_KCGS4US6I_EQMtJCJ_FrzXTbZwE2LTiG9PN4w0PyKyEN3BjOFhxwISKk6-nIlO73kcjoO4pxHOfRTW9Wufy85hHYk-0FW50RFM4AMpLXeT1ZXAdBtjS4THTp8-4CEJKUqGtqpAuSKtSIa-kS2QvMv2ZzFOXncZqrmvjOAh9QcCKo7ufDlaTm9Np2SktDrp5lqdIEcylJ7WIYmbSqFd7s_MGtIWTAx1AHwwUPyqDYvx0DZAzlg; __gfp_64b=yuPBB_zOjH.1uK1tkpQZkL8p9sUyj_G4yCJ3SEB8xhD.67|1677829004; _gcl_au=1.1.30120493.1677829035; mdLogger=false; kampyle_userid=2e50-b2c4-4497-7a6e-9c1e-b1b3-2921-312f; mdigital_alternative_uuid=2f23-8086-963e-0bd1-8de4-9477-288d-35cd; kampylePageLoadedTimestamp=1677829035729; datadome=T-GrOkPcynEKFCbqjIgog6JZ4-naQKSOczx8ktl16Ohhy3SJE7P_eV~-Ke9FQmdA-t--5MXHE3VRV18h7zjkLJ-9AiMG1HMcEAYibFOTvMNyrO_2XYC8_Cmp21dzotr; kampyleUserSession=1677829110377; kampyleUserSessionsCount=2; kampyleSessionPageCounter=1; kampyleUserPercentile=60.22179709250117
+

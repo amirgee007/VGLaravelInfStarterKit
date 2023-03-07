@@ -320,6 +320,38 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ActivityController@userActivity'
     ]);
 
+    /**
+     * Potential Products Management
+     */
+    Route::get('potential_product', [
+        'as' => 'potential_product.list',
+        'uses' => 'PotentialProduct@index'
+    ]);
+
+    Route::get('potential_product/collect', [
+        'as' => 'potential_product.collect',
+        'uses' => 'PotentialProduct@collect'
+    ]);
+
+    Route::get('potential_product/process', [
+        'as' => 'potential_product.process',
+        'uses' => 'PotentialProduct@process'
+    ]);
+
+    Route::get('potential_product/{product}/show', [
+        'as' => 'potential_product.show',
+        'uses' => 'UsersController@view'
+    ]);
+
+    Route::get('user/{user}/edit', [
+        'as' => 'user.edit',
+        'uses' => 'UsersController@edit'
+    ]);
+
+    Route::put('user/{user}/update/details', [
+        'as' => 'user.update.details',
+        'uses' => 'UsersController@updateDetails'
+    ]);
 });
 
 

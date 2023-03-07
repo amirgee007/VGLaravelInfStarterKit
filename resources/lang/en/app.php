@@ -290,6 +290,21 @@ return [
     'you_have_to_accept_tos' => 'You have to accept Terms of Service.',
     'permission_already_exists' => 'Permission with this name already exists!',
 
+    // protential products
+    'potential_product' => 'Potential Product',
+    'fetch_protential_product' => 'Fetch potential products',
+    'product_id' => 'Id',
+    'product_thumbnail' => 'Thumbnail',
+    'product_rank' => 'Rank',
+    'product_url' => 'Url',
+    'product_original_title' => 'Original Title',
+    'product_price' => 'Price',
+    'product_category' => 'Category',
+    'product_our_model' => 'Our Model',
+    'product_created_at' => 'Created At',
+    'product_updated_at' => 'Updated',
+    'product_action' => 'Action',
+
     //Emails
     'hi' => 'Hi',
     'registration_confirmation' => 'Registration Confirmation',

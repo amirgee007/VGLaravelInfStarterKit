@@ -44,6 +44,16 @@
             </li>
             @endpermission
 
+
+            @permission('users.manage')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('potential_product*') ? 'active' : ''  }}" href="{{ route('potential_product.list') }}">
+                    <i class="fas fa-users"></i>
+                    <span>@lang('app.potential_product')</span>
+                </a>
+            </li>
+            @endpermission
+
             @permission('users.activity')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('activity*') ? 'active' : ''  }}" href="{{ route('activity.index') }}">
