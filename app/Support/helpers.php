@@ -53,3 +53,40 @@ if (! function_exists('check_stock_location')) {
         return $return_str;
     }
 }
+
+if (! function_exists('valid_parentheses')) {
+
+    /**
+     * Determine if the input string is valid.
+     *
+     * @param string $s containing just the characters '(',')','{','}','['and']'
+     * @return string if it matches it returns "valid",otherwise it returns "invalid"
+     */
+    function valid_parentheses(string $s) {
+        $length = strlen($s);
+        if ($length & 1) {
+            return 'invalid';
+        }
+
+        $map = [
+            '(' => ')',
+            '{' => '}',
+            '[' => ']',
+        ];
+        $left_key = array_keys($map);
+
+        $stack = [];
+        for($i = 0; $i < $length; $i++) {
+            $chr = $s[$i];
+            if (in_array($chr, $left_key)) {
+                array_push($stack, $chr);
+            } elseif ($chr == $map[end($stack)]) {
+                array_pop($stack);
+            } else {
+                return 'invalid';
+            }
+        }
+
+        return $stack ? 'invalid' : 'valid';
+    }
+}
