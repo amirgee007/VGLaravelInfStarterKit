@@ -35,6 +35,15 @@
                 </a>
             </li>
 
+            @if (auth()->user()->hasRole('Admin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('crawl*') ? 'active' : ''  }}" href="{{ route('crawl.index') }}">
+                    <i class="fas fa-bug"></i>
+                    <span>@lang('app.crawl')</span>
+                </a>
+            </li>
+            @endif
+
             @permission('users.manage')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('user*') ? 'active' : ''  }}" href="{{ route('user.list') }}">

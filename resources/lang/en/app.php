@@ -18,6 +18,23 @@ return [
     'action_sm' => 'action',
     "actions_sm" => 'actions',
 
+    // Crawl Section
+    'crawl' => 'Crawl',
+    'crawl_products' => 'Crawl Products',
+    'id' => 'Id',
+    'thumbnail' => 'Thumbnail',
+    'rank' => 'Rank',
+    'url' => 'Url',
+    'original_title' => 'Original Title',
+    'english_title' => 'English Title',
+    'chinese_title' => 'Chinese Title',
+    'image' => 'Image',
+    'price' => 'Price',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'view_link' => 'View Link',
+    'search_for_crawl' => 'Search by id,url,title',
+
     // Activity Log Section
     'activity_log' => 'Activity Log',
     'activity_log_sm' => 'activity log',

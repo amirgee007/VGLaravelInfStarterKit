@@ -320,6 +320,21 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ActivityController@userActivity'
     ]);
 
+    Route::get('crawl', [
+        'as'   => 'crawl.index',
+        'uses' => 'CrawlController@index'
+    ]);
+
+    Route::get('crawl/download/products', [
+        'as'   => 'crawl.download.products',
+        'uses' => 'CrawlController@downloadProducts'
+    ]);
+
+    Route::get('crawl/download/images', [
+        'as'   => 'crawl.download.images',
+        'uses' => 'CrawlController@downloadImages'
+    ]);
+
 });
 
 
@@ -370,4 +385,12 @@ $router->get('install/complete', [
 $router->get('install/error', [
     'as' => 'install.error',
     'uses' => 'InstallController@error'
+]);
+
+/**
+ * About Crawl
+ */
+$router->get('crawl/scrape', [
+    'as'   => 'crawl.scrape',
+    'uses' => 'CrawlController@scrape'
 ]);

@@ -18,6 +18,23 @@ return [
     'action_sm' => 'aktion',
     "actions_sm" => 'aktionen',
 
+    // Crawl Section
+    'crawl' => 'Kriechen',
+    'crawl_products' => 'Crawlprodukte',
+    'id' => 'Id',
+    'thumbnail' => 'Miniaturansicht',
+    'rank' => 'Rang',
+    'url' => 'Url',
+    'original_title' => 'Originaltitel',
+    'english_title' => 'englischer Titel',
+    'chinese_title' => 'chinesischer Titel',
+    'image' => 'Bild',
+    'price' => 'Preis',
+    'created_at' => 'Erstellt bei',
+    'updated_at' => 'Aktualisiert bei',
+    'view_link' => 'Link anzeigen',
+    'search_for_crawl' => 'Suche nach id,url,title',
+
     // Activity Log Section
     'activity_log' => 'Aktivitäts-Log',
     'activity_log_sm' => 'Aktivitäts-Log',

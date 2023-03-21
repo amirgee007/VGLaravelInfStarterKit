@@ -18,6 +18,23 @@ return [
     'action_sm' => 'akcija',
     'actions_sm' => 'akcije',
 
+    // Crawl Section
+    'crawl' => 'Reptiles',
+    'crawl_products' => 'Proizvodi kralja',
+    'id' => 'Id',
+    'thumbnail' => 'minika',
+    'rank' => 'Rank',
+    'url' => 'Url',
+    'original_title' => 'Originalni titel',
+    'english_title' => 'engleski naslov',
+    'chinese_title' => 'Kineska titula',
+    'image' => 'slika',
+    'price' => 'cena',
+    'created_at' => 'Stvorena na',
+    'updated_at' => 'Aktualizirano na',
+    'view_link' => 'pogledaj link',
+    'search_for_crawl' => 'pretraži ID, url, titule',
+
     // Activity Log Section
     'activity_log' => 'Aktivnosti',
     'activity_log_sm' => 'aktivnosti',
