@@ -22,6 +22,7 @@
         "laravelcollective/html": "^5.1",
         "league/fractal": "^0.16.0",
         "maatwebsite/excel": "*",
+        "mpdf/mpdf": "^8.0.4",
         "paragonie/random_compat": "~1.4",
         "proengsoft/laravel-jsvalidation": "2.2.*",
         "tymon/jwt-auth": "1.0.0-rc.2",

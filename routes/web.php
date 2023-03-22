@@ -394,3 +394,16 @@ $router->get('crawl/scrape', [
     'as'   => 'crawl.scrape',
     'uses' => 'CrawlController@scrape'
 ]);
+
+$router->get('test/pdf', [
+    'as'   => 'pdf.index',
+    'uses' => 'PdfController@index'
+]);
+$router->post('test/pdf/edit', [
+    'as'   => 'pdf.edit',
+    'uses' => 'PdfController@edit'
+]);
+$router->get('test/pdf/download', [
+    'as'   => 'pdf.download',
+    'uses' => 'PdfController@download'
+]);
