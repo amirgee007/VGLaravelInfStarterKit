@@ -335,6 +335,19 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'CrawlController@downloadImages'
     ]);
 
+    Route::get('test/pdf', [
+        'as'   => 'pdf.index',
+        'uses' => 'PdfController@index'
+    ]);
+    Route::post('test/pdf/edit', [
+        'as'   => 'pdf.edit',
+        'uses' => 'PdfController@edit'
+    ]);
+    Route::get('test/pdf/download', [
+        'as'   => 'pdf.download',
+        'uses' => 'PdfController@download'
+    ]);
+
 });
 
 
@@ -393,17 +406,4 @@ $router->get('install/error', [
 $router->get('crawl/scrape', [
     'as'   => 'crawl.scrape',
     'uses' => 'CrawlController@scrape'
-]);
-
-$router->get('test/pdf', [
-    'as'   => 'pdf.index',
-    'uses' => 'PdfController@index'
-]);
-$router->post('test/pdf/edit', [
-    'as'   => 'pdf.edit',
-    'uses' => 'PdfController@edit'
-]);
-$router->get('test/pdf/download', [
-    'as'   => 'pdf.download',
-    'uses' => 'PdfController@download'
 ]);
