@@ -320,6 +320,19 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ActivityController@userActivity'
     ]);
 
+    /**
+     * Potential Product
+     */
+    Route::get('potential-products', [
+        'as' => 'potential-products.index',
+        'uses' => 'PotentialProductsController@index'
+    ]);
+
+    Route::get('potential-products/excel', [
+        'as' => 'potential-products.excel',
+        'uses' => 'PotentialProductsController@excel'
+    ]);
+
 });
 
 

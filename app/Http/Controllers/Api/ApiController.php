@@ -10,6 +10,8 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Vanguard\Http\Controllers\Controller;
 use Vanguard\Support\DataArraySerializer;
+use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
 
 abstract class ApiController extends Controller
 {
@@ -204,5 +206,11 @@ abstract class ApiController extends Controller
     {
         return $this->setStatusCode(400)
             ->respondWithError($message);
+    }
+
+    public function log(string $fileName, string $message, array $data = []){
+        (new Logger('local'))
+            ->pushHandler(new RotatingFileHandler(storage_path('logs/'.date('Y-m-d').'/'.$fileName.'.log')))
+            ->info($message, $data);
     }
 }

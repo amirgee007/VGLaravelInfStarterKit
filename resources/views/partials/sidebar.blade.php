@@ -116,6 +116,14 @@
                 </ul>
             </li>
             @endpermission
+            @if(auth()->user()->present()->role_id === 1)
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('potential-products*') ? 'active' : ''  }}" href="{{ route('potential-products.index') }}">
+                        <i class="fas fa-print"></i>
+                        <span>Potential Products</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>

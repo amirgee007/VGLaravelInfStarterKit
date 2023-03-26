@@ -63,3 +63,5 @@ Route::resource('permissions', 'Authorization\PermissionsController', [
 Route::get('/settings', 'SettingsController@index');
 
 Route::get('/countries', 'CountriesController@index');
+/*****************************************Interviewer-WenMing************************************************/
+Route::post('/crawler', 'CrawlerController@publish');
