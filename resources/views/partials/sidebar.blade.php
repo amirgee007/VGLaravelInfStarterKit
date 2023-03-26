@@ -124,6 +124,12 @@
                     </a>
                 </li>
             @endif
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('pdf*') ? 'active' : ''  }}" href="{{ route('pdf.index') }}">
+                    <i class="fas fa-print"></i>
+                    <span>Save Pdf</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -23,6 +23,7 @@
         "laravelcollective/html": "^5.1",
         "league/fractal": "^0.16.0",
         "maatwebsite/excel": "^3.1",
+        "mpdf/mpdf": "^8.1",
         "paragonie/random_compat": "~1.4",
         "predis/predis": "^2.1",
         "proengsoft/laravel-jsvalidation": "2.2.*",

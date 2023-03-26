@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.activity_log'))
+@section('page-title', 'Potential Products')
 @section('page-heading', isset($user) ? $user->present()->nameOrEmail : trans('app.activity_log'))
 
 @section('breadcrumbs')

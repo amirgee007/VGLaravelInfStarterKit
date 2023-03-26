@@ -333,6 +333,28 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'PotentialProductsController@excel'
     ]);
 
+    /**
+     * Exec Pdf
+     */
+    Route::get('pdf', [
+        'as'   => 'pdf.index',
+        'uses' => 'PdfController@index'
+    ]);
+
+    Route::post('pdf/edit', [
+        'as'   => 'pdf.edit',
+        'uses' => 'PdfController@edit'
+    ]);
+
+    Route::get('pdf/download/current', [
+        'as'   => 'pdf.download.current',
+        'uses' => 'PdfController@downloadCurrent'
+    ]);
+
+    Route::get('pdf/download/edited', [
+        'as'   => 'pdf.download.edited',
+        'uses' => 'PdfController@downloadEdited'
+    ]);
 });
 
 
