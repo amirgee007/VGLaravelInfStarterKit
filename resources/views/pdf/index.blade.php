@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.add_user'))
-@section('page-heading', trans('app.create_new_user'))
+@section('page-title', trans('app.pdf_editor'))
+@section('page-heading', trans('app.pdf_editor'))
 
 @section('breadcrumbs')
     <li class="breadcrumb-item">
-        <a href="{{ route('user.list') }}">@lang('app.users')</a>
-    </li>
-    <li class="breadcrumb-item active">
-        @lang('app.create')
+        <a href="{{ route('pdf.index') }}">@lang('app.pdf_editor')</a>
     </li>
 @stop
 
@@ -22,10 +19,10 @@
             <div class="row">
                 <div class="col-md-3">
                     <h5 class="card-title">
-                        @lang('app.user_details')
+                        @lang('app.pdf_details')
                     </h5>
                     <p class="text-muted font-weight-light">
-                        A general user profile information.
+                        PDF Editor information.
                     </p>
                 </div>
                 <div class="col-md-6">
@@ -61,13 +58,15 @@
                                        name="ean_number" placeholder="EAN Number" value="">
                             </div>
                             <div class="form-group float-right">
-                                <button class="btn btn-danger">
-                                    Download Current PDF
-                                </button>
+                                <a target="_blank" href="{{ route('pdf.download.current') }}">
+                                    <span class="btn btn-danger">
+                                        Download Current PDF
+                                    </span>
+                                </a>
                                 <button type="submit" class="btn btn-warning">
                                     Edit PDF
                                 </button>
-                                <a target="_blank" href="{{ route('pdf.download') }}">
+                                <a target="_blank" href="{{ route('pdf.download.edited') }}">
                                     <span class="btn btn-primary">
                                         Download Edited PDF
                                     </span>

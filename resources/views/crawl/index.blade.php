@@ -48,6 +48,9 @@
                 </div>
                 <div class="float-right col-lg-6 col-md-6 form-control input-solid">
                     <a target="_blank" href="{{ route('crawl.download.products', ['search' => Input::get('search')]) }}">
+                        <i class="fas fa-download mr-2 text-muted"></i>
+                    </a>
+                    <a target="_blank" href="{{ route('crawl.scrape') }}">
                         <i class="fas fa-download mr-2"></i>
                     </a>
                 </div>

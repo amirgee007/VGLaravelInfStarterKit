@@ -35,6 +35,10 @@ return [
     'view_link' => 'View Link',
     'search_for_crawl' => 'Search by id,url,title',
 
+    // Edited PDF Section
+    'pdf_editor' => 'PDF Editor',
+    'pdf_details' => 'PDF Details',
+
     // Activity Log Section
     'activity_log' => 'Activity Log',
     'activity_log_sm' => 'activity log',

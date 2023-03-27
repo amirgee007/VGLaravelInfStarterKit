@@ -35,6 +35,10 @@ return [
     'view_link' => 'pogledaj link',
     'search_for_crawl' => 'pretraži ID, url, titule',
 
+    // Edited PDF Section
+    'pdf_editor' => 'pdfeditor',
+    'pdf_details' => 'PDF detalji',
+
     // Activity Log Section
     'activity_log' => 'Aktivnosti',
     'activity_log_sm' => 'aktivnosti',

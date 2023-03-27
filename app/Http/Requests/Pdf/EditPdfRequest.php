@@ -14,7 +14,7 @@ class EditPdfRequest extends Request
     public function rules()
     {
         $rules = [
-            'pdf_file'       => 'required',
+            'pdf_file'       => '',
             'product_id'     => 'required|digits_between:10,50',
             'quantity'       => 'required',
             'stock_location' => 'required|alpha_num|size:8',

@@ -14,7 +14,7 @@ class PotentialProducts extends Model
      * @var array
      */
     protected $fillable = [
-        'rank','thumbnail','url','original_title','original_description','price','english_title',
+        'rank','thumbnail','url','original_product_id','original_title','original_description','price','english_title',
         'english_description', 'chinese_title','chinese_description','image','extra_images'
     ];
 }

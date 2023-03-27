@@ -35,14 +35,23 @@
                 </a>
             </li>
 
-            @if (auth()->user()->hasRole('Admin'))
+            @permission('crawl.manage')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('crawl*') ? 'active' : ''  }}" href="{{ route('crawl.index') }}">
                     <i class="fas fa-bug"></i>
                     <span>@lang('app.crawl')</span>
                 </a>
             </li>
-            @endif
+            @endpermission
+
+            @permission('pdf.manage')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('pdf*') ? 'active' : ''  }}" href="{{ route('pdf.index') }}">
+                    <i class="fas fa-bug"></i>
+                    <span>@lang('app.pdf_editor')</span>
+                </a>
+            </li>
+            @endpermission
 
             @permission('users.manage')
             <li class="nav-item">

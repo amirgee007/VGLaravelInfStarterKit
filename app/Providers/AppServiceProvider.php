@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SessionRepository::class, DbSession::class);
         $this->app->singleton(CountryRepository::class, EloquentCountry::class);
         $this->app->singleton(PotentialProductRepository::class, EloquentPotentialProduct::class);
+        $this->app->register(\Illuminate\Redis\RedisServiceProvider::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

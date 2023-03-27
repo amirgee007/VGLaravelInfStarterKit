@@ -19,6 +19,8 @@ class PdfController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth');
+        $this->middleware('permission:pdf.manage');
     }
 
     /**
@@ -78,6 +80,19 @@ class PdfController extends Controller
         $pdf->Write(0, $request->input('stock_location'), 0, '', 'ltr', 'R');
         $pdf->Image($barcode_path, 140, 210, 0, 20);
         $pdf->Output($edited_pdf_path);
+    }
+
+    /**
+     * Download the current pdf file.
+     */
+    public function downloadCurrent()
+    {
+        $pdf_path = storage_path('app/pdf/pdf_file-' . Auth::user()->id . '.pdf');
+        if (!is_file($pdf_path)) {
+            return "Can't find current pdf file";
+        }
+
+        return response()->download($pdf_path);
     }
 
     /**

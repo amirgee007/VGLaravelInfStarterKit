@@ -18,9 +18,9 @@ class EloquentPotentialProduct implements PotentialProductRepository
     /**
      * {@inheritdoc}
      */
-    public function create(array $data)
+    public function updateOrCreate(array $attributes, array $data)
     {
-        PotentialProducts::create($data);
+        PotentialProducts::updateOrCreate($attributes, $data);
     }
 
     /**

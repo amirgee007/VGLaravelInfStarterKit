@@ -320,9 +320,18 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ActivityController@userActivity'
     ]);
 
+
+    /**
+     * About Crawl
+     */
     Route::get('crawl', [
         'as'   => 'crawl.index',
         'uses' => 'CrawlController@index'
+    ]);
+
+    Route::get('crawl/scrape', [
+        'as'   => 'crawl.scrape',
+        'uses' => 'CrawlController@scrape'
     ]);
 
     Route::get('crawl/download/products', [
@@ -335,16 +344,23 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'CrawlController@downloadImages'
     ]);
 
-    Route::get('test/pdf', [
+    /**
+     * About Edit PDF
+     */
+    Route::get('pdf', [
         'as'   => 'pdf.index',
         'uses' => 'PdfController@index'
     ]);
-    Route::post('test/pdf/edit', [
+    Route::post('pdf/edit', [
         'as'   => 'pdf.edit',
         'uses' => 'PdfController@edit'
     ]);
-    Route::get('test/pdf/download', [
-        'as'   => 'pdf.download',
+    Route::get('pdf/download/current', [
+        'as'   => 'pdf.download.current',
+        'uses' => 'PdfController@downloadCurrent'
+    ]);
+    Route::get('pdf/download/edited', [
+        'as'   => 'pdf.download.edited',
         'uses' => 'PdfController@download'
     ]);
 
@@ -398,12 +414,4 @@ $router->get('install/complete', [
 $router->get('install/error', [
     'as' => 'install.error',
     'uses' => 'InstallController@error'
-]);
-
-/**
- * About Crawl
- */
-$router->get('crawl/scrape', [
-    'as'   => 'crawl.scrape',
-    'uses' => 'CrawlController@scrape'
 ]);

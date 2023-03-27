@@ -16,11 +16,12 @@ interface PotentialProductRepository
     public function find($id);
 
     /**
-     * Create new Potential Product.
+     * Update or Create new Potential Product.
      *
+     * @param array $attributes
      * @param array $data
      */
-    public function create(array $data);
+    public function updateOrCreate(array $attributes, array $data);
 
     /**
      * Paginate all potential product records.

@@ -2,13 +2,16 @@
 
 namespace Vanguard\Http\Controllers\Web;
 
+use Auth;
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\DomCrawler\Crawler;
 use Vanguard\Exports\PotentialProductsExport;
 use Vanguard\Http\Controllers\Controller;
+use Vanguard\Jobs\ProcessCrawlJob;
 use Vanguard\Repositories\Crawl\PotentialProductRepository;
+use Vanguard\Repositories\User\UserRepository;
 
 /**
  * Class CrawlController
@@ -19,17 +22,22 @@ class CrawlController extends Controller
 
     private $httpClient = null;
     private $potentialProduct;
+    private $userRepository;
 
     /**
      * CrawlController constructor.
      * @param PotentialProductRepository $potentialProduct
+     * @param UserRepository $userRepository
      */
-    public function __construct(PotentialProductRepository $potentialProduct)
+    public function __construct(PotentialProductRepository $potentialProduct, UserRepository $userRepository)
     {
+        $this->middleware('auth');
+        $this->middleware('permission:crawl.manage');
         $this->httpClient = new HttpClient([
-            'timeout' => 30
+            'timeout' => 0
         ]);
         $this->potentialProduct = $potentialProduct;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -52,13 +60,13 @@ class CrawlController extends Controller
      * Download products.
      *
      * @param Request $request
-     * @return bool|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return string|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadProducts(Request $request)
     {
         $products = $this->potentialProduct->lists($request->get('search'), ['id','rank','thumbnail','url','original_title','price','english_title','chinese_title','image','created_at','updated_at']);
         if (!$products) {
-            return false;
+            return 'Products is empty!';
         }
         $title = [
             'id'             => trans('app.id'),
@@ -113,6 +121,19 @@ class CrawlController extends Controller
 
     public function scrape()
     {
+        try {
+            dispatch((new ProcessCrawlJob(Auth::user()->id, $this->userRepository, $this->potentialProduct))->onConnection('redis')->onQueue('allegro_crawl'));
+        } catch (\Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
+            exit;
+        }
+
+        echo "The crawler is already in the queue, please refresh the list page later" . PHP_EOL;
+        exit;
+    }
+
+    public function getProducts()
+    {
         // begin scraping data
         $url = 'https://allegro.pl/';
 
@@ -154,24 +175,20 @@ class CrawlController extends Controller
         $crawler = new Crawler();
         $crawler->addHtmlContent($response);
 
-        try {
-            $products = $crawler->filterXPath('//div[contains(@id, "carousel-reco-carousel")]//div[@class="mpof_ki mr3m_1 mjyo_6x gel0f _e8529_NFJ-e g1s2l guv1z g1pyo g167r g12dg"]')
-                ->each(function (Crawler $node) {
-                    return [
-                        'thumbnail' => $node->filterXPath('//div[@class="mpof_z0 mp7g_f6 mj7u_0 mq1m_0 mnjl_0 mqm6_0 m7er_k4"]/img')->attr('data-src'),
-                        'price'     => $node->filterXPath('//div[@class="mli8_k4 msa3_z4 mqu1_1 mp0t_ji m9qz_yo mgmw_qw mgn2_27 mgn2_30_s"]')->text(),
-                        'title'     => $node->filterXPath('//a[@class="mp0t_0a mgmw_wo mj9z_5r mli8_k4 mqen_m6 l1fas l1igl mgn2_13 mqu1_16 meqh_en mpof_92 msub_k4 _e8529_NrY0A"]')->text(),
-                        'info_url'  => $node->filterXPath('//a[@class="mp0t_0a mgmw_wo mj9z_5r mli8_k4 mqen_m6 l1fas l1igl mgn2_13 mqu1_16 meqh_en mpof_92 msub_k4 _e8529_NrY0A"]')->attr('href'),
-                    ];
-                });
+        $products = $crawler->filterXPath('//div[contains(@id, "carousel-reco-carousel")]//div[@class="mpof_ki mr3m_1 mjyo_6x gel0f _e8529_NFJ-e g1s2l guv1z g1pyo g167r g12dg"]')
+            ->each(function (Crawler $node) {
+                return [
+                    'thumbnail' => $node->filterXPath('//div[@class="mpof_z0 mp7g_f6 mj7u_0 mq1m_0 mnjl_0 mqm6_0 m7er_k4"]/img')->attr('data-src'),
+                    'price'     => $node->filterXPath('//div[@class="mli8_k4 msa3_z4 mqu1_1 mp0t_ji m9qz_yo mgmw_qw mgn2_27 mgn2_30_s"]')->text(),
+                    'title'     => $node->filterXPath('//a[@class="mp0t_0a mgmw_wo mj9z_5r mli8_k4 mqen_m6 l1fas l1igl mgn2_13 mqu1_16 meqh_en mpof_92 msub_k4 _e8529_NrY0A"]')->text(),
+                    'info_url'  => $node->filterXPath('//a[@class="mp0t_0a mgmw_wo mj9z_5r mli8_k4 mqen_m6 l1fas l1igl mgn2_13 mqu1_16 meqh_en mpof_92 msub_k4 _e8529_NrY0A"]')->attr('href'),
+                    'item_id'   => $node->filterXPath('//a[@class="mp0t_0a mgmw_wo mj9z_5r mli8_k4 mqen_m6 l1fas l1igl mgn2_13 mqu1_16 meqh_en mpof_92 msub_k4 _e8529_NrY0A"]')->attr('data-analytics-click-custom-item-id'),
+                ];
+            });
 
-            // todo can put it into queue to crawl and increase the monitoring platform to monitor the progress of crawling in real time
-            foreach ($products as $product) {
-                $this->_getProductInfo($product);
-            }
-        } catch (\Exception $e) {
-            echo $e->getMessage() . PHP_EOL;
-            exit;
+        // put it into queue to crawl and increase the monitoring platform to monitor the progress of crawling in real time
+        foreach ($products as $product) {
+            $this->_getProductInfo($product);
         }
     }
 
@@ -202,7 +219,8 @@ class CrawlController extends Controller
 
         try {
             $title = $product['title'];
-            $description = $crawler->filterXPath('//div[contains(@data-box-name, "showoffer.productHeader")]//h4')->text();
+//            $title = $crawler->filterXPath('//div[contains(@data-box-name, "showoffer.productHeader")]//h4')->text();
+            $description = $crawler->filterXPath('//div[@data-box-name="Description card"]')->html();
             $images = $crawler->filterXPath('//div[contains(@data-box-name, "allegro.showoffer.gallery")]//div[@class="_e5e62_U0UTX"]')
                 ->each(function (Crawler $node) {
                     return $node->filterXPath('//img')->attr('src');
@@ -212,6 +230,7 @@ class CrawlController extends Controller
                 'rank'                 => $crawler->filterXPath('//div[contains(@data-box-name, "showoffer.productHeader")]//div[@class="mpof_ki mwdn_1"]')->attr('data-analytics-view-custom-rating-value'),
                 'thumbnail'            => $product['thumbnail'],
                 'url'                  => $product['info_url'],
+                'original_product_id'  => $product['item_id'],
                 'original_title'       => $title,
                 'original_description' => $description,
                 'price'                => $product['price'],
@@ -223,9 +242,9 @@ class CrawlController extends Controller
                 'extra_images'         => implode(',', $images),
             ];
 
-            // todo Remove duplicate crawled products
+            // Remove duplicate crawled products
             // save product into database
-            $this->potentialProduct->create($potential_product);
+            $this->potentialProduct->updateOrCreate(['original_product_id' => $product['item_id']], $potential_product);
         } catch (\Exception $e) {
             echo $e->getMessage() . PHP_EOL;
             exit;
