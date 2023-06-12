@@ -116,6 +116,22 @@
                 </ul>
             </li>
             @endpermission
+
+            @permission('users.manage')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('potentialProducts*') ? 'active' : ''  }}" href="{{ route('potentialProducts.index') }}">
+                    <i class="fas fa-server"></i>
+                    <span>@lang('app.potential_products')</span>
+                </a>
+            </li>
+            @endpermission
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('pdfUpload*') ? 'active' : ''  }}" href="{{ route('pdfUpload.index') }}">
+                    <i class="fas fa-server"></i>
+                    <span>@lang('app.pdf_upload')</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

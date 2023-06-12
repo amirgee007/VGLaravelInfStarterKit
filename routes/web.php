@@ -124,6 +124,21 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'ProfileController@invalidateSession'
     ]);
 
+    //potentialProduct
+    Route::get('potentialProducts', [
+        'as' => 'potentialProducts.index',
+        'uses' => 'potentialProductsController@index'
+    ]);
+    //pdfUpload
+    Route::get('pdfUpload', [
+        'as' => 'pdfUpload.index',
+        'uses' => 'pdfUploadController@index'
+    ]);
+    Route::post('pdfUpload', [
+        'as' => 'pdfUpload.upload',
+        'uses' => 'pdfUploadController@upload'
+    ]);
+
     /**
      * User Management
      */

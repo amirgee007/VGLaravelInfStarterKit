@@ -1,5 +1,17 @@
 <?php
 
+//task one
+Route::post('potential_products_sync', 'PotentialProductsController@syncProduct');
+//task two
+Route::post('upload_pdf_file', 'UploadController@uploadPDFFile');
+Route::post('download_current_pdf', 'UploadController@downloadCurrentPDF');
+Route::post('download_edited_pdf', 'UploadController@downloadEditPDF');
+Route::post('edit_pdf', 'UploadController@editPDF');
+//task three
+Route::post('task_three', 'LogicalTestsController@taskThree');
+//task four
+Route::post('task_four', 'LogicalTestsController@taskFour');
+
 Route::post('login', 'Auth\AuthController@login');
 Route::post('login/social', 'Auth\SocialLoginController@index');
 Route::post('logout', 'Auth\AuthController@logout');

@@ -16,6 +16,8 @@ use Vanguard\Repositories\Session\SessionRepository;
 use Vanguard\Repositories\User\EloquentUser;
 use Vanguard\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
+use Vanguard\Repositories\PotentialProduct\PotentialProductRepository;
+use Vanguard\Repositories\PotentialProduct\EloquentPotentialProduct;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(PotentialProductRepository::class, EloquentPotentialProduct::class);
         $this->app->singleton(UserRepository::class, EloquentUser::class);
         $this->app->singleton(ActivityRepository::class, EloquentActivity::class);
         $this->app->singleton(RoleRepository::class, EloquentRole::class);

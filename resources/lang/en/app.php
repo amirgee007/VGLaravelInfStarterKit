@@ -310,6 +310,38 @@ return [
     'all_rights_reserved' => 'All rights reserved.',
     'regards' => 'Regards',
 
+    //potentialProducts
+    'potential_products' => 'Potential Products',
+    'search_for_products' => 'Search products with title',
+    'sync_products' => 'Sync Products',
+    'view_link' => 'View Link',
+    'loading' => 'loading please wait',
+    'pd_rank' => 'rank',
+    'pd_thumbnail' => 'thumbnail',
+    'pd_url' => 'url',
+    'pd_original_title' => 'original_title',
+    'pd_original_description' => 'original_description',
+    'pd_price' => 'price',
+    'pd_english_title' => 'english_title',
+    'pd_english_description' => 'english_description',
+    'pd_chinese_title' => 'chinese_title',
+    'pd_chinese_description' => 'chinese_description',
+    'pd_image' => 'image',
+    'pd_extra_images' => 'extra_images',
+
+    //pdfUpload
+    'pdf_upload' => 'pdf upload',
+    'upload_info' => 'Click Here To Upload PDF File',
+    'product_id' => 'Product ID',
+    'quantity' => 'Quantity',
+    'stock_location' => 'Stock Location',
+    'EAN_Number' => 'EAN Number',
+    'download_current_pdf' => 'Download Current PDF',
+    'edit_pdf' => 'Edit PDF',
+    'download_edited_pdf' => 'Download Edited PDF',
+    'no_pdf' => 'No Pdf Uploaded',
+    'no_file' => 'No File Can Download',
+
     'months' => [
         1 => 'January',
         2 => 'February',
